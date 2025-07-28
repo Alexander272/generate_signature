@@ -1,0 +1,46 @@
+package transport
+
+import (
+	"net/http"
+
+	"github.com/Alexander272/generate_signature/backend/internal/config"
+	"github.com/Alexander272/generate_signature/backend/internal/services"
+	"github.com/Alexander272/generate_signature/backend/internal/transport/signature"
+	"github.com/Alexander272/generate_signature/backend/pkg/limiter"
+	"github.com/gin-gonic/gin"
+)
+
+type Handler struct {
+	// keycloak *auth.KeycloakClient
+	services *services.Services
+}
+
+func NewHandler(services *services.Services) *Handler {
+	return &Handler{
+		services: services,
+		// keycloak: keycloak,
+	}
+}
+
+func (h *Handler) Init(conf *config.Config) *gin.Engine {
+	router := gin.Default()
+
+	router.Use(
+		limiter.Limit(conf.Limiter.RPS, conf.Limiter.Burst, conf.Limiter.TTL),
+	)
+
+	// Init router
+	router.GET("/api/ping", func(c *gin.Context) {
+		c.String(http.StatusOK, "pong")
+	})
+
+	h.initAPI(router, conf)
+
+	return router
+}
+
+func (h *Handler) initAPI(router *gin.Engine, conf *config.Config) {
+	api := router.Group("/api")
+
+	signature.Register(api, h.services.Signature)
+}
