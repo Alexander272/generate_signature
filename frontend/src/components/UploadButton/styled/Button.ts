@@ -1,4 +1,4 @@
-import { ButtonBase, ButtonBaseProps, styled } from '@mui/material'
+import { ButtonBase, type ButtonBaseProps, styled } from '@mui/material'
 
 const Button = styled(ButtonBase)<ButtonBaseProps>(({ theme }) => ({
 	// flexGrow: 1,

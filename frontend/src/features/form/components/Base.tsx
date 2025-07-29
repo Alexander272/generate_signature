@@ -21,7 +21,7 @@ export const Base = () => {
 						<UploadImage
 							{...field}
 							value={field.value}
-							onChange={file => field.onChange(file ? fileToBase64(file) : '')}
+							onChange={async file => field.onChange(file ? await fileToBase64(file) : '')}
 						/>
 					)}
 				/>

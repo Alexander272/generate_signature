@@ -42,6 +42,7 @@ const CodeList: FC<Context> = ({ data }) => {
 	const [generate, { isLoading }] = useSignRenderMutation()
 
 	const getCode = useCallback(async () => {
+		if (!data || !data?.length) return
 		const res = await generate(data[active])
 		setCode((res.data as string) || '')
 	}, [active, data, generate])

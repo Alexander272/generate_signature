@@ -107,35 +107,45 @@ const UploadInput: FC<Props> = ({ onChange, sx }) => {
 
 	return (
 		<Box
-			component='label'
-			border={`1px solid #0000003b`}
-			borderRadius={3}
+			// component='label'
+
 			display={'flex'}
 			flexDirection={'column'}
 			justifyContent={'center'}
 			alignItems={'center'}
 			flexGrow={1}
-			padding={2}
 			boxShadow={hasDropFiles ? 'inset 0 0 20px #00000028' : undefined}
-			sx={{
-				cursor: 'pointer',
-				transition: 'all 0.3s ease-in-out',
-				':hover': {
-					// boxShadow: 'inset 0 0 20px #00000028',
-					borderColor: '#000000de',
-				},
-				...sx,
-			}}
 			onDragEnter={dragHandler}
 			onDragLeave={dragHandler}
 			onDragOver={dragHandler}
 			onDrop={dropHandler}
 		>
-			<ImageIcon fontSize={100} fill={'#646464'} />
-			<Typography fontSize={'1.1rem'} color={'#464646'}>
-				Выберите или перетащите файл
-			</Typography>
-			<Input onChange={changeHandler} type='file' />
+			<Box
+				component='label'
+				border={`1px solid #0000003b`}
+				borderRadius={3}
+				display={'flex'}
+				flexDirection={'column'}
+				justifyContent={'center'}
+				alignItems={'center'}
+				flexGrow={1}
+				padding={2}
+				sx={{
+					cursor: 'pointer',
+					transition: 'all 0.3s ease-in-out',
+					':hover': {
+						// boxShadow: 'inset 0 0 20px #00000028',
+						borderColor: '#000000de',
+					},
+					...sx,
+				}}
+			>
+				<ImageIcon fontSize={100} fill={'#646464'} />
+				<Typography fontSize={'1.1rem'} color={'#464646'}>
+					Выберите или перетащите файл
+				</Typography>
+				<Input onChange={changeHandler} type='file' />
+			</Box>
 		</Box>
 	)
 }

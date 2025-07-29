@@ -1,5 +1,5 @@
-import { Menu, MenuProps, SxProps, Theme } from '@mui/material'
-import { FC, PropsWithChildren } from 'react'
+import { type FC, type PropsWithChildren } from 'react'
+import { Menu, type MenuProps, type SxProps, type Theme } from '@mui/material'
 
 interface Props extends MenuProps {
 	paperSx?: SxProps<Theme>
