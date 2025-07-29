@@ -1,10 +1,10 @@
 package models
 
 type RenderData struct {
-	Setting Setting `json:"setting"`
-	Header  Header  `json:"header"`
-	Base    Base    `json:"base" binding:"required"`
-	Footer  Footer  `json:"footer"`
+	Setting *Setting `json:"setting"`
+	Header  *Header  `json:"header"`
+	Base    *Base    `json:"base" binding:"required"`
+	Footer  *Footer  `json:"footer"`
 }
 
 type Setting struct {
@@ -17,7 +17,8 @@ type Header struct{}
 
 type Base struct {
 	Email      string `json:"email" binding:"required,email"`
-	Phone      string `json:"phone" binding:"required"`
+	HasPhone   bool   `json:"hasPhone"`
+	Phone      string `json:"phone"`
 	Mobile     string `json:"mobile"`
 	HasMobile  bool   `json:"hasMobile"`
 	Name       string `json:"name" binding:"required"`

@@ -1,10 +1,4 @@
 {{define "htmlBody"}}
-<!DOCTYPE html>
-<html lang="ru">
-
-{{template "partial:head" .}}
-
-<body>
     <table width="100%" cellspacing="0" cellpadding="0"
         style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;font-size: 14px;">
         <tr>
@@ -22,18 +16,21 @@
             <td style="padding-left: 30px;">
                 <p style="margin-top: 0.3em;margin-bottom: 0.3em;">С уважением,</p>
                 <p style="margin-top: 0.3em;margin-bottom: 0.3em;font-weight: 700;color:#042e60;">{{.Base.Name}}</p>
-                <p style="margin-top: 0.3em;">{{.Base.Position}} ООО "Силур"</p>
+                <p style="margin-top: 0.3em;">{{.Base.Position}} ООО&nbsp;"Силур"</p>
 
+                {{if .Base.HasPhone}}
                 <p style="margin-top: 0.3em;margin-bottom: 0.3em;">
                     <span style="color:#042e60;font-weight: 700;">Тел.:</span>&nbsp;{{.Base.Phone}}
                 </p>
+                {{end}}
                 {{if .Base.HasMobile}}
                 <p style="margin-top: 0.3em;margin-bottom: 0.3em;">
                     <span style="color:#042e60;font-weight: 700;">Моб.тел.:</span>&nbsp;{{.Base.Mobile}}
                 </p>
                 {{end}}
+                
                 <p style="margin-top: 0.3em;margin-bottom: 0.3em;">
-                    <span style="color:#042e60;font-weight: 700;">E-Mail:</span>&nbsp;<a href="mailto:{{.Base.Email}}"
+                    <span style="color:#042e60;font-weight: 700;">E&#8209;Mail:</span>&nbsp;<a href="mailto:{{.Base.Email}}"
                         style="text-decoration: none;color: #000;">{{.Base.Email}}</a>
                 </p>
                 <p style="margin-top: 0.3em;margin-bottom: 0.3em;">
@@ -51,7 +48,4 @@
         </tr>
         {{end}}
     </table>
-</body>
-
-</html>
 {{end}}
