@@ -2,7 +2,7 @@ import { toast } from 'react-toastify'
 
 import type { IFetchError } from '@/app/types/error'
 import { HttpCodes } from '@/constants/httpCodes'
-import { saveAs } from './utils/saveAs'
+import { saveAs } from '@/utils/saveAs'
 import { apiSlice } from '@/app/apiSlice'
 
 const signApiSlice = apiSlice.injectEndpoints({
@@ -11,7 +11,7 @@ const signApiSlice = apiSlice.injectEndpoints({
 		downloadSign: builder.mutation({
 			queryFn: async (data, _api, _, baseQuery) => {
 				const result = await baseQuery({
-					url: '/signature',
+					url: 'signature',
 					cache: 'no-cache',
 					method: 'POST',
 					body: data,

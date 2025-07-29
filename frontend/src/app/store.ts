@@ -1,14 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
-import { formPath, formReducer } from '@/features/formSlice'
-// import { userPath, userReducer } from '@/features/user/userSlice'
-// import { resetStoreListener } from './middlewares/resetStore'
 import { apiSlice } from './apiSlice'
+import { formPath, formReducer } from '@/features/formSlice'
+import { dialogPath, dialogReducer } from '@/features/dialog/dialogSlice'
 
 const rootReducer = combineReducers({
 	[apiSlice.reducerPath]: apiSlice.reducer,
 	[formPath]: formReducer,
+	[dialogPath]: dialogReducer,
 	// [dataTablePath]: dataTableReducer,
 	// [employeesPath]: employeesReducer,
 })

@@ -35,7 +35,7 @@ export const Preview = () => {
 			{value === 'preview' && (
 				<iframe title='Webview' style={{ width: '100%', height: '500px', border: 'none' }} srcDoc={html} />
 			)}
-			{value === 'code' && <Code />}
+			{value === 'code' && <Code hasDownload code={html} />}
 		</Box>
 	)
 }

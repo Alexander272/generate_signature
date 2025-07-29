@@ -29,27 +29,18 @@ export const Form = () => {
 
 	const [generate] = useSignRenderMutation()
 
-	// const autosave = useDebounceFunc(() => {
-	// 	saveHandler()
-	// }, 100)
-
-	// useEffect(() => {
-	// 	console.log(Object.keys(methods.formState.dirtyFields))
-
-	// 	if (Object.keys(methods.formState.dirtyFields)) autosave()
-	// }, [methods.formState.dirtyFields, autosave])
-
 	const saveHandler = methods.handleSubmit(async form => {
 		console.log('save form', form)
 
 		if (form.base.logo.includes('data:image')) form.base.logo = form.base.logo.split(',')[1]
 		if (form.footer.hasEDI) form.footer.isNotEmpty = true
+		if (form.base.phone?.includes('_')) form.base.phone = undefined
+		if (form.base.mobile?.includes('_')) form.base.mobile = undefined
+		form.base.email = `${form.base.email}@sealur.ru`
 
 		dispatch(setValues(form))
 
 		const res = await generate(form)
-		console.log('res', res)
-
 		dispatch(setHtml(res.data))
 	})
 

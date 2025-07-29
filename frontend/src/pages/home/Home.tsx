@@ -4,6 +4,7 @@ import { Box, Divider, Stack } from '@mui/material'
 import { Fallback } from '@/components/Fallback/Fallback'
 import { PageBox } from '@/components/PageBox/PageBox'
 import { Preview } from '@/features/preview/components/Preview'
+import { FileBlock } from '@/features/file/components/FileBlock'
 
 const Form = lazy(() => import('@/features/form/components/Form'))
 
@@ -22,11 +23,14 @@ export default function Home() {
 				maxHeight={800}
 				display={'flex'}
 				flexDirection={'column'}
-				sx={{ backgroundColor: '#fff', userSelect: 'none' }}
+				sx={{ backgroundColor: '#fff' }}
 			>
 				<Suspense fallback={<Fallback />}>
 					<Stack direction={'row'} spacing={3} divider={<Divider orientation='vertical' flexItem />}>
-						<Form />
+						<Stack justifyContent={'space-between'} spacing={2} minHeight={580}>
+							<Form />
+							<FileBlock />
+						</Stack>
 						<Preview />
 					</Stack>
 				</Suspense>

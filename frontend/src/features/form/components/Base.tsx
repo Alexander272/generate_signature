@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { Stack, TextField } from '@mui/material'
+import { InputAdornment, Stack, TextField } from '@mui/material'
 import { Controller, useFormContext, type ControllerRenderProps } from 'react-hook-form'
 import { useIMask } from 'react-imask'
 
@@ -59,15 +59,14 @@ export const Base = () => {
 				<Controller
 					control={control}
 					name={'base.phone'}
-					rules={{ required: true }}
-					render={({ field, fieldState: { error } }) => <PhoneInput field={field} error={Boolean(error)} />}
+					render={({ field }) => <PhoneInput field={field} />}
 				/>
 				<Controller control={control} name={'base.mobile'} render={({ field }) => <MobileInput {...field} />} />
 
 				<Controller
 					control={control}
 					name={'base.email'}
-					rules={{ required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i }}
+					rules={{ required: true }}
 					render={({ field, fieldState: { error } }) => (
 						<TextField
 							label={'Email'}
@@ -75,6 +74,11 @@ export const Base = () => {
 							value={field.value || ''}
 							error={Boolean(error)}
 							helperText={error && 'Некорректный email'}
+							slotProps={{
+								input: {
+									endAdornment: <InputAdornment position='end'>@sealur.ru</InputAdornment>,
+								},
+							}}
 						/>
 					)}
 				/>
@@ -83,7 +87,7 @@ export const Base = () => {
 	)
 }
 
-const PhoneInput: FC<{ field: ControllerRenderProps<IForm, 'base.phone'>; error: boolean }> = ({ field, error }) => {
+const PhoneInput: FC<{ field: ControllerRenderProps<IForm, 'base.phone'>; error?: boolean }> = ({ field, error }) => {
 	const phone = useIMask(
 		{
 			mask: '+7 (000) 000-00-00 (доб. 000[000])',
