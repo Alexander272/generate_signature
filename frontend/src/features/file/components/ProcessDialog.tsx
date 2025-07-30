@@ -2,6 +2,7 @@ import { useState, type ChangeEvent, type DragEvent } from 'react'
 import { Box, Button, Stack, Typography } from '@mui/material'
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import { useProcessFileMutation } from '../fileApiSlice'
 import { changeDialogIsOpen, getDialogState } from '@/features/dialog/dialogSlice'
 import { Dialog } from '@/features/dialog/components/Dialog'
 import { DownloadIcon } from '@/components/Icons/DownloadIcon'
@@ -10,7 +11,6 @@ import { BoxFallback } from '@/components/Fallback/BoxFallback'
 import Input from '@/components/UploadImage/Input'
 import { CodeIcon } from '@/components/Icons/CodeIcon'
 import { UploadIcon } from '@/components/Icons/UploadIcon'
-import { useProcessFileMutation } from '../fileApiSlice'
 
 export const ProcessDialog = () => {
 	const modal = useAppSelector(getDialogState('ProcessKind'))
@@ -89,6 +89,7 @@ const Kind = () => {
 
 			{hasDropFiles && (
 				<Box
+					display={'flex'}
 					sx={{
 						background: '#bfbfbfcf',
 						position: 'absolute',

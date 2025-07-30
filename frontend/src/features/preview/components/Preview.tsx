@@ -27,13 +27,13 @@ export const Preview = () => {
 
 	if (!form.base?.name || !html) return null
 	return (
-		<Box width={'100%'}>
+		<Box width={'100%'} pl={3}>
 			<Tabs value={value} onChange={tabHandler} />
 
 			{isLoading && <BoxFallback />}
 
 			{value === 'preview' && (
-				<iframe title='Webview' style={{ width: '100%', height: '500px', border: 'none' }} srcDoc={html} />
+				<iframe title='Webview' style={{ width: '100%', height: '650px', border: 'none' }} srcDoc={html} />
 			)}
 			{value === 'code' && <Code hasDownload code={html} />}
 		</Box>

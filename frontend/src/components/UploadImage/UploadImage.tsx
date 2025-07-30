@@ -6,11 +6,12 @@ import { TrashIcon } from '@/components/Icons/TrashIcon'
 import { ImageIcon } from './ImageIcon'
 import { Image } from './Image'
 import Input from './Input'
+import { transformBase64ToFile } from '@/features/form/utils/base64'
 
 type Props = {
 	fullscreen?: boolean
 	sx?: SxProps<Theme>
-	value?: File | string
+	value?: string
 	onChange: (file?: File | null) => void
 }
 
@@ -34,7 +35,7 @@ const Preview: FC<Props> = ({ value, onChange, sx }) => {
 			flexGrow={1}
 			padding={2}
 			position={'relative'}
-			sx={{ ...sx }}
+			sx={sx}
 		>
 			<Box
 				position={'absolute'}
@@ -44,6 +45,7 @@ const Preview: FC<Props> = ({ value, onChange, sx }) => {
 				display={'flex'}
 				justifyContent={'center'}
 				alignItems={'center'}
+				flexGrow={1}
 				sx={{
 					background: '#00000063',
 					opacity: 0,
@@ -51,11 +53,12 @@ const Preview: FC<Props> = ({ value, onChange, sx }) => {
 					':hover': {
 						opacity: '1',
 					},
+					...sx,
 				}}
 			>
 				<Stack direction={'row'} spacing={2}>
 					<Button
-						href={typeof value == 'string' ? '/' + value : URL.createObjectURL(value)}
+						href={value.includes('data:image') ? URL.createObjectURL(transformBase64ToFile(value)) : value}
 						target='_blank'
 						rel='noopener noreferrer'
 						sx={{ minWidth: 44, boxShadow: 'inset 0 0 0px 20px white' }}
@@ -67,10 +70,7 @@ const Preview: FC<Props> = ({ value, onChange, sx }) => {
 					</Button>
 				</Stack>
 			</Box>
-			<Image
-				src={typeof value == 'string' ? value : URL.createObjectURL(value)}
-				alt={typeof value == 'string' ? value : value.name}
-			/>
+			<Image src={value} alt={value} />
 		</Box>
 	)
 }

@@ -11,6 +11,10 @@ import { Base } from './Base'
 import { Footer } from './Footer'
 
 const defValue: IForm = {
+	header: {
+		isNotEmpty: false,
+		values: [],
+	},
 	base: {
 		email: '',
 		name: '',
@@ -33,15 +37,19 @@ export const Form = () => {
 		console.log('save form', form)
 
 		if (form.base.logo.includes('data:image')) form.base.logo = form.base.logo.split(',')[1]
-		if (form.footer.hasEDI) form.footer.isNotEmpty = true
 		if (form.base.phone?.includes('_')) form.base.phone = undefined
 		if (form.base.mobile?.includes('_')) form.base.mobile = undefined
+		if (form.footer.hasEDI) form.footer.isNotEmpty = true
+		form.header.values = form.header.values.map(h =>
+			h.isImage && !h.isLink ? { ...h, value: h.value.split(',')[1] } : h
+		)
+		form.header.isNotEmpty = !!form.header.values.length
 		form.base.email = `${form.base.email}@sealur.ru`
 
 		dispatch(setValues(form))
 
 		const res = await generate(form)
-		dispatch(setHtml(res.data))
+		dispatch(setHtml(res.data as string))
 	})
 
 	return (

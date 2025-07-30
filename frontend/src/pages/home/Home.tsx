@@ -26,8 +26,17 @@ export default function Home() {
 				sx={{ backgroundColor: '#fff' }}
 			>
 				<Suspense fallback={<Fallback />}>
-					<Stack direction={'row'} spacing={3} divider={<Divider orientation='vertical' flexItem />}>
-						<Stack justifyContent={'space-between'} spacing={2} minHeight={580}>
+					<Stack direction={'row'} divider={<Divider orientation='vertical' flexItem />}>
+						<Stack
+							justifyContent={'space-between'}
+							spacing={2}
+							minHeight={580}
+							maxHeight={750}
+							maxWidth={732}
+							width={'100%'}
+							overflow={'auto'}
+							pr={3}
+						>
 							<Form />
 							<FileBlock />
 						</Stack>

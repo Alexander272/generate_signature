@@ -3,12 +3,12 @@ import { IconButton, Stack, Typography, useTheme } from '@mui/material'
 
 import type { IForm } from '@/features/form/types/form'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux'
+import { useSignRenderMutation } from '@/features/form/signApiSlice'
 import { changeDialogIsOpen, getDialogState } from '@/features/dialog/dialogSlice'
 import { Dialog } from '@/features/dialog/components/Dialog'
+import { Code } from '@/features/preview/components/Code'
 import { BoxFallback } from '@/components/Fallback/BoxFallback'
 import { LeftArrowIcon } from '@/components/Icons/LeftArrowIcon'
-import { Code } from '@/features/preview/components/Code'
-import { useSignRenderMutation } from '@/features/form/signApiSlice'
 
 export const CodeDialog = () => {
 	const modal = useAppSelector(getDialogState('CodeList'))
@@ -17,8 +17,6 @@ export const CodeDialog = () => {
 	const closeHandler = () => {
 		dispatch(changeDialogIsOpen({ variant: 'CodeList', isOpen: false }))
 	}
-
-	console.log('modal context', modal?.context)
 
 	return (
 		<Dialog

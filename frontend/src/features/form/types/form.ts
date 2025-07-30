@@ -1,4 +1,6 @@
 export interface IForm {
+	setting?: ISetting
+	header: IHeader
 	base: IBase
 	footer: IFooter
 }
@@ -11,6 +13,20 @@ export interface IBase {
 	position: string
 
 	logo: string
+}
+
+export interface ISetting {
+	fontSize?: string
+}
+
+export interface IHeader {
+	isNotEmpty: boolean
+	values: IHeaderValue[]
+}
+export interface IHeaderValue {
+	isImage: boolean
+	value: string
+	isLink?: boolean
 }
 
 export interface IFooter {
