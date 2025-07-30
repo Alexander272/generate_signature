@@ -43,7 +43,7 @@ func (s *SignatureService) Render(ctx context.Context, dto *models.RenderData) (
 		dto.Base.IsLogoLink = true
 	}
 
-	patterns := []string{"partials/head.tmpl", "partials/edi.tmpl", "signature.tmpl"}
+	patterns := []string{"partials/head.tmpl", "partials/edi.tmpl", "partials/header.tmpl", "signature.tmpl"}
 	ts, err := htmlTemplate.New("").Funcs(funcs.TemplateFuncs).ParseFS(templates.Templates, patterns...)
 	if err != nil {
 		return "", fmt.Errorf("failed to create html template set. error: %w", err)

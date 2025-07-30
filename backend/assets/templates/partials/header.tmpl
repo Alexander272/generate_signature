@@ -1,0 +1,21 @@
+{{define "partial:header"}} 
+    {{range .Header.Values}}
+        <tr>
+            <td colspan="2" style="padding-bottom: 20px;">
+                {{if .IsImage}}
+                    <img alt="{{.Value}}" style="max-width:900px"
+                        {{if .IsLink}}
+                            src="{{.Value}}"
+                        {{else}}
+                            src="data:image/png;base64,{{.Value}}"
+                        {{end}} 
+                    />
+                {{else}}
+                    <p style="margin-top: 0.4em;margin-bottom: 0.4em;font-style: italic;font-weight: 700;">
+                        {{.Value}}
+                    </p>
+                {{end}}
+            </td>
+        </tr>
+    {{end}}
+{{end}}

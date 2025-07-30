@@ -13,7 +13,15 @@ type Setting struct {
 	AccentColor string `json:"accentColor"`
 }
 
-type Header struct{}
+type Header struct {
+	IsNotEmpty bool          `json:"isNotEmpty"`
+	Values     []HeaderValue `json:"values"`
+}
+type HeaderValue struct {
+	IsLink  bool   `json:"isLink"`
+	IsImage bool   `json:"isImage"`
+	Value   string `json:"value"`
+}
 
 type Base struct {
 	Email      string `json:"email" binding:"required,email"`
