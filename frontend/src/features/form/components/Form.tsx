@@ -24,6 +24,10 @@ const defValue: IForm = {
 	footer: {
 		isNotEmpty: false,
 		hasEDI: false,
+		hasLinks: false,
+		linksTitle: '',
+		column: 2,
+		links: [],
 	},
 }
 
@@ -45,6 +49,7 @@ export const Form = () => {
 		)
 		form.header.isNotEmpty = !!form.header.values.length
 		form.base.email = `${form.base.email}@sealur.ru`
+		form.footer.column = +form.footer.column || 2
 
 		dispatch(setValues(form))
 

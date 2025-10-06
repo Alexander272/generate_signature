@@ -11,6 +11,8 @@ export interface IBase {
 	mobile?: string
 	name: string
 	position: string
+	hasWhatsApp?: boolean
+	hasTelegram?: boolean
 
 	logo: string
 }
@@ -32,4 +34,17 @@ export interface IHeaderValue {
 export interface IFooter {
 	isNotEmpty: boolean
 	hasEDI: boolean
+	hasLinks: boolean
+	linksTitle: string
+	column: number
+	links: IFooterLink[]
+}
+// export interface IFooterLinks {
+// 	title: string
+// 	data: IFooterLink[]
+// }
+export interface IFooterLink {
+	label: string
+	imageLink: string
+	link: string
 }

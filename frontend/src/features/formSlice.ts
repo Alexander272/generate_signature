@@ -11,6 +11,7 @@ type FormState = {
 const initialState: FormState = {
 	values: {
 		header: {
+			isNotEmpty: false,
 			values: [],
 		},
 		base: {

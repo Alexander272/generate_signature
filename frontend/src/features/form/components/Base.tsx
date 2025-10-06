@@ -1,89 +1,129 @@
 import type { FC } from 'react'
-import { InputAdornment, Stack, TextField } from '@mui/material'
+import { FormControl, InputAdornment, Stack, TextField } from '@mui/material'
 import { Controller, useFormContext, type ControllerRenderProps } from 'react-hook-form'
 import { useIMask } from 'react-imask'
 
 import type { IForm } from '../types/form'
 import { fileToBase64 } from '../utils/base64'
 import { UploadImage } from '@/components/UploadImage/UploadImage'
+import { Checkbox } from '@/components/Checkbox/Checkbox'
 
 export const Base = () => {
 	const { control } = useFormContext<IForm>()
 
 	return (
-		<Stack spacing={1} direction={'row'} mb={2}>
-			<Stack width={350}>
-				{/* Image */}
-				<Controller
-					control={control}
-					name={'base.logo'}
-					render={({ field }) => (
-						<UploadImage
-							{...field}
-							value={field.value}
-							onChange={async file => field.onChange(file ? await fileToBase64(file) : '')}
-						/>
-					)}
-				/>
-			</Stack>
-			<Stack spacing={2} width={350}>
-				<Controller
-					control={control}
-					name={'base.name'}
-					rules={{ required: true }}
-					render={({ field, fieldState: { error } }) => (
-						<TextField
-							label={'ФИО'}
-							{...field}
-							value={field.value || ''}
-							error={Boolean(error)}
-							helperText={error && 'Обязательное поле'}
-						/>
-					)}
-				/>
-				<Controller
-					control={control}
-					name={'base.position'}
-					rules={{ required: true }}
-					render={({ field, fieldState: { error } }) => (
-						<TextField
-							label={'Должность'}
-							{...field}
-							value={field.value || ''}
-							error={Boolean(error)}
-							helperText={error && 'Обязательное поле'}
-						/>
-					)}
-				/>
+		<>
+			<Stack spacing={1} direction={'row'} mb={1}>
+				<Stack width={350}>
+					{/* Image */}
+					<Controller
+						control={control}
+						name={'base.logo'}
+						render={({ field }) => (
+							<UploadImage
+								{...field}
+								value={field.value}
+								onChange={async file => field.onChange(file ? await fileToBase64(file) : '')}
+							/>
+						)}
+					/>
+				</Stack>
+				<Stack spacing={2} width={350}>
+					<Controller
+						control={control}
+						name={'base.name'}
+						rules={{ required: true }}
+						render={({ field, fieldState: { error } }) => (
+							<TextField
+								label={'ФИО'}
+								{...field}
+								value={field.value || ''}
+								error={Boolean(error)}
+								helperText={error && 'Обязательное поле'}
+							/>
+						)}
+					/>
+					<Controller
+						control={control}
+						name={'base.position'}
+						rules={{ required: true }}
+						render={({ field, fieldState: { error } }) => (
+							<TextField
+								label={'Должность'}
+								{...field}
+								value={field.value || ''}
+								error={Boolean(error)}
+								helperText={error && 'Обязательное поле'}
+							/>
+						)}
+					/>
 
-				<Controller
-					control={control}
-					name={'base.phone'}
-					render={({ field }) => <PhoneInput field={field} />}
-				/>
-				<Controller control={control} name={'base.mobile'} render={({ field }) => <MobileInput {...field} />} />
+					<Controller
+						control={control}
+						name={'base.phone'}
+						render={({ field }) => <PhoneInput field={field} />}
+					/>
+					<Controller
+						control={control}
+						name={'base.mobile'}
+						render={({ field }) => <MobileInput {...field} />}
+					/>
 
-				<Controller
-					control={control}
-					name={'base.email'}
-					rules={{ required: true }}
-					render={({ field, fieldState: { error } }) => (
-						<TextField
-							label={'Email'}
-							{...field}
-							value={field.value || ''}
-							error={Boolean(error)}
-							helperText={error && 'Некорректный email'}
-							slotProps={{
-								input: {
-									endAdornment: <InputAdornment position='end'>@sealur.ru</InputAdornment>,
-								},
-							}}
-						/>
-					)}
-				/>
+					<Controller
+						control={control}
+						name={'base.email'}
+						rules={{ required: true }}
+						render={({ field, fieldState: { error } }) => (
+							<TextField
+								label={'Email'}
+								{...field}
+								value={field.value || ''}
+								error={Boolean(error)}
+								helperText={error && 'Некорректный email'}
+								slotProps={{
+									input: {
+										endAdornment: <InputAdornment position='end'>@sealur.ru</InputAdornment>,
+									},
+								}}
+							/>
+						)}
+					/>
+				</Stack>
 			</Stack>
-		</Stack>
+			<Stack direction={'row'} mb={2}>
+				<FormControl sx={{ width: 300 }}>
+					<Controller
+						control={control}
+						name={'base.hasWhatsApp'}
+						render={({ field }) => (
+							<Checkbox
+								id='hasWhatsApp'
+								name={field.name}
+								checked={field.value}
+								onChange={field.onChange}
+								label='WhatsApp'
+							/>
+						)}
+					/>
+				</FormControl>
+
+				<FormControl sx={{ width: 300 }}>
+					<Controller
+						control={control}
+						name={'base.hasTelegram'}
+						render={({ field }) => (
+							<Checkbox
+								id='hasTelegram'
+								name={field.name}
+								checked={field.value}
+								onChange={field.onChange}
+								label='Telegram'
+							/>
+						)}
+					/>
+				</FormControl>
+			</Stack>
+		</>
 	)
 }
 

@@ -2,7 +2,7 @@ import { Button, IconButton, Stack, TextField } from '@mui/material'
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form'
 
 import type { IForm } from '../types/form'
-import { SettingIcon } from '@/components/Icons/SettingIcon'
+// import { SettingIcon } from '@/components/Icons/SettingIcon'
 import { TimesIcon } from '@/components/Icons/TimesIcon'
 import { ImageBlock } from './ImageBlock'
 
@@ -36,9 +36,9 @@ export const Header = () => {
 					Добавить текст
 				</Button>
 
-				<IconButton>
+				{/* <IconButton>
 					<SettingIcon fontSize={18} />
-				</IconButton>
+				</IconButton> */}
 			</Stack>
 
 			{fields.map((item, idx) => (
@@ -55,7 +55,7 @@ export const Header = () => {
 						<Controller
 							control={control}
 							name={`header.values.${idx}.value`}
-							render={({ field }) => <TextField {...field} sx={{ width: '80%' }} />}
+							render={({ field }) => <TextField {...field} multiline sx={{ width: '80%' }} />}
 						/>
 					)}
 
