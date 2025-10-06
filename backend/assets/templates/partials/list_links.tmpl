@@ -1,0 +1,37 @@
+{{define "partial:list_links"}}
+    {{if .Footer.HasListTitle}}
+    <tr>
+        <td colspan="2" style="padding-top: 20px;">
+            <p style="margin-top: 0.4em;margin-bottom: 0.4em;font-size:1.1rem;font-style: italic;font-weight: 700;">
+                {{.Footer.LinksTitle}}
+            </p>
+        </td>
+    </tr>
+    {{end}}
+
+    <tr>
+        <td colspan="2">
+            <table cellspacing="0" cellpadding="0"
+                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;font-size: 14px;"
+            >
+                {{range $index, $element := (splitLinksForColumns .Footer.Column .Footer.Links)}}
+                    <tr>
+                        {{range .}}
+                            <td width="250" style="padding:3px;">
+                                <a href="{{.Link}}" style="text-decoration:none;color:#042e60;display:flex;align-items: center;border-radius:12px;background:#f2f6ff;padding:6px;">
+                                    <span 
+                                        style="display: flex;justify-content:center;align-items:center;max-width:32px;padding-right:20px;padding-left:12px;">
+                                        <img alt="{{.Label}}" src="{{.ImageLink}}" style="object-fit:contain;width:100%;height:auto;" />
+                                    </span>
+                                    <span>
+                                        {{.Label}}
+                                    </span>
+                                </a>
+                            </td>
+                        {{end}}
+                    </tr>
+                {{end}}
+            </table>
+        </td>
+    </tr>
+{{end}}

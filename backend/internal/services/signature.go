@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -42,8 +43,9 @@ func (s *SignatureService) Render(ctx context.Context, dto *models.RenderData) (
 	if _, err := url.ParseRequestURI(dto.Base.Logo); err == nil {
 		dto.Base.IsLogoLink = true
 	}
+	dto.Footer.HasListTitle = dto.Footer.LinksTitle != ""
 
-	patterns := []string{"partials/head.tmpl", "partials/edi.tmpl", "partials/header.tmpl", "signature.tmpl"}
+	patterns := []string{"partials/head.tmpl", "partials/edi.tmpl", "partials/header.tmpl", "partials/list_links.tmpl", "signature.tmpl"}
 	ts, err := htmlTemplate.New("").Funcs(funcs.TemplateFuncs).ParseFS(templates.Templates, patterns...)
 	if err != nil {
 		return "", fmt.Errorf("failed to create html template set. error: %w", err)
@@ -85,19 +87,52 @@ func (s *SignatureService) ExtractFromFile(ctx context.Context, reader io.Reader
 			continue
 		}
 
+		column := 0
+		if strings.TrimSpace(record[9]) != "" && record[9] != "0" {
+			column, err = strconv.Atoi(record[9])
+			if err != nil {
+				return nil, fmt.Errorf("failed to convert column to int. error: %w", err)
+			}
+		}
+
+		links := []models.Link{}
+		if column > 0 {
+			linksList := strings.Split(record[11], "\n")
+			images := strings.Split(record[12], "\n")
+			texts := strings.Split(record[13], "\n")
+
+			for i, l := range linksList {
+				links = append(links, models.Link{
+					Link:      l,
+					ImageLink: images[i],
+					Label:     texts[i],
+				})
+			}
+		}
+
 		data = append(data, &models.RenderData{
+			Header: &models.Header{
+				IsNotEmpty: false,
+				Values:     make([]models.HeaderValue, 0),
+			},
 			Base: &models.Base{
-				Name:       record[1],
-				Position:   record[2],
-				Phone:      record[3],
-				Mobile:     record[4],
-				Email:      record[5],
-				Logo:       constants.DefaultLogo,
-				IsLogoLink: false,
+				Name:        record[1],
+				Position:    record[2],
+				Phone:       record[3],
+				Mobile:      record[4],
+				HasWhatsApp: record[5] == "1",
+				HasTelegram: record[6] == "1",
+				Email:       record[7],
+				Logo:        constants.DefaultLogo,
+				IsLogoLink:  false,
 			},
 			Footer: &models.Footer{
-				IsNotEmpty: record[6] == "1",
-				HasEDI:     record[6] == "1",
+				IsNotEmpty: record[8] == "1",
+				HasEDI:     record[8] == "1",
+				HasLinks:   record[9] != "0",
+				Column:     column,
+				LinksTitle: record[10],
+				Links:      links,
 			},
 		})
 	}

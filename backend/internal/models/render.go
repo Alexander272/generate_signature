@@ -24,18 +24,30 @@ type HeaderValue struct {
 }
 
 type Base struct {
-	Email      string `json:"email" binding:"required,email"`
-	HasPhone   bool   `json:"hasPhone"`
-	Phone      string `json:"phone"`
-	Mobile     string `json:"mobile"`
-	HasMobile  bool   `json:"hasMobile"`
-	Name       string `json:"name" binding:"required"`
-	Position   string `json:"position"`
-	Logo       string `json:"logo"`
-	IsLogoLink bool   `json:"isLogoLink"`
+	Email       string `json:"email" binding:"required,email"`
+	HasPhone    bool   `json:"hasPhone"`
+	Phone       string `json:"phone"`
+	Mobile      string `json:"mobile"`
+	HasMobile   bool   `json:"hasMobile"`
+	HasTelegram bool   `json:"hasTelegram"`
+	HasWhatsApp bool   `json:"hasWhatsApp"`
+	Name        string `json:"name" binding:"required"`
+	Position    string `json:"position"`
+	Logo        string `json:"logo"`
+	IsLogoLink  bool   `json:"isLogoLink"`
 }
 
 type Footer struct {
-	IsNotEmpty bool `json:"isNotEmpty"`
-	HasEDI     bool `json:"hasEDI"`
+	IsNotEmpty   bool   `json:"isNotEmpty"`
+	HasEDI       bool   `json:"hasEDI"`
+	HasLinks     bool   `json:"hasLinks"`
+	Column       int    `json:"column"`
+	LinksTitle   string `json:"linksTitle"`
+	HasListTitle bool   `json:"hasListTitle"`
+	Links        []Link `json:"links"`
+}
+type Link struct {
+	Link      string `json:"link"`
+	ImageLink string `json:"imageLink"`
+	Label     string `json:"label"`
 }

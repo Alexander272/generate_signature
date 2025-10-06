@@ -11,6 +11,7 @@ import (
 	"time"
 	"unicode"
 
+	"github.com/Alexander272/generate_signature/backend/internal/models"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 )
@@ -52,6 +53,9 @@ var TemplateFuncs = template.FuncMap{
 	// URL functions
 	"urlSetParam": urlSetParam,
 	"urlDelParam": urlDelParam,
+
+	// Range functions
+	"splitLinksForColumns": splitLinksForColumns,
 }
 
 func formatTime(format string, t time.Time) string {
@@ -223,4 +227,16 @@ func toInt64(i any) (int64, error) {
 	}
 
 	return 0, fmt.Errorf("unable to convert type %T to int", i)
+}
+
+func splitLinksForColumns(c int, data []models.Link) [][]models.Link {
+	var result [][]models.Link
+	for i := 0; i < len(data); i += c {
+		end := i + c
+		if end > len(data) {
+			end = len(data)
+		}
+		result = append(result, data[i:end])
+	}
+	return result
 }
