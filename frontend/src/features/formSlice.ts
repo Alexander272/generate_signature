@@ -25,6 +25,10 @@ const initialState: FormState = {
 		footer: {
 			isNotEmpty: false,
 			hasEDI: false,
+			hasLinks: false,
+			linksTitle: '',
+			column: 2,
+			links: [],
 		},
 	},
 	html: '',

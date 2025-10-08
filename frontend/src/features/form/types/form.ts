@@ -45,6 +45,6 @@ export interface IFooter {
 // }
 export interface IFooterLink {
 	label: string
-	imageLink: string
+	// imageLink: string
 	link: string
 }

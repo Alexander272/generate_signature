@@ -13,7 +13,7 @@ export const List = () => {
 	const { fields, append, remove } = useFieldArray({ control, name: 'footer.links' })
 
 	const addHandler = () => {
-		append({ label: '', imageLink: '', link: '' })
+		append({ label: '', link: '' })
 	}
 
 	const deleteHandler = (idx: number) => () => {
@@ -42,14 +42,13 @@ export const List = () => {
 							name={`footer.links.${idx}.link`}
 							render={({ field }) => <TextField {...field} label={'Ссылка'} sx={{ mb: 1 }} />}
 						/>
-
-						<Controller
+						{/* <Controller
 							control={control}
 							name={`footer.links.${idx}.imageLink`}
 							render={({ field }) => (
 								<TextField {...field} label={'Ссылка на изображение'} sx={{ mb: 1 }} />
 							)}
-						/>
+						/> */}
 						<Controller
 							control={control}
 							name={`footer.links.${idx}.label`}
@@ -63,7 +62,6 @@ export const List = () => {
 						>
 							<TimesIcon fontSize={14} />
 						</IconButton>
-
 						<Divider sx={{ width: '60%', mx: 'auto' }} />
 					</Stack>
 				))}
