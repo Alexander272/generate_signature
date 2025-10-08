@@ -1,5 +1,37 @@
 {{define "partial:list_links"}}
-    {{if .Footer.HasListTitle}}
+    <tr>
+        <td colspan="2" height=20></td>
+    </tr>
+    <tr>
+        <td colspan=2 style=background-color:#f2f6ff;padding-bottom:8px;border-radius:12px>
+            <table width="100%" cellspacing=0 cellpadding=0
+                style=mso-table-lspace:0;mso-table-rspace:0;border-collapse:collapse;border-spacing:0;font-size:14px>
+
+                {{if .Footer.HasListTitle}}
+                    <tr>
+                        <td colspan=2>
+                            <p
+                                style=margin-top:.4em;margin-bottom:.4em;font-size:1.1rem;font-style:italic;font-weight:700;text-align:center>
+                                {{.Footer.LinksTitle}}
+                            </p>
+                        </td>
+                    </tr>
+                {{end}}
+
+                {{range $index, $element := (splitLinksForColumns .Footer.Column .Footer.Links)}}
+                    <tr>
+                        {{range .}}
+                            <td width=250 style=padding:3px><a href="{{.Link}}"
+                                style="color:#042e60;display:flex;align-items:center;border-radius:12px;background:#f2f6ff;padding:6px;justify-content:center;text-align:center;border:1px solid #201b18">
+                                {{.Label}}</a></td>
+                        {{end}}
+                    </tr>
+                {{end}}
+            </table>
+        </td>
+    </tr>
+
+    {{/* {{if .Footer.HasListTitle}}
     <tr>
         <td colspan="2" style="padding-top: 20px;">
             <p style="margin-top: 0.4em;margin-bottom: 0.4em;font-size:1.1rem;font-style: italic;font-weight: 700;">
@@ -18,10 +50,10 @@
                     <tr>
                         {{range .}}
                             <td width="250" style="padding:3px;">
-                                <a href="{{.Link}}" style="text-decoration:none;color:#042e60;display:flex;align-items: center;border-radius:12px;background:#f2f6ff;padding:6px;">
+                                <a href="{{.Link}}" style="text-decoration:none;color:#042e60;display:flex;align-items: center;border-radius:12px;background:#f2f6ff;padding:6px;height:44px;box-sizing:border-box;">
                                     <span 
-                                        style="display: flex;justify-content:center;align-items:center;max-width:32px;padding-right:20px;padding-left:12px;">
-                                        <img alt="{{.Label}}" src="{{.ImageLink}}" style="object-fit:contain;width:100%;height:auto;" />
+                                        style="display:flex;justify-content:center;align-items:center;max-width:32px;padding-right:20px;padding-left:12px;width:100%;">
+                                        <img alt="{{.Label}}" src="{{.ImageLink}}" style="object-fit:contain;width:100%;height:auto;max-height:32px;" />
                                     </span>
                                     <span>
                                         {{.Label}}
@@ -33,5 +65,5 @@
                 {{end}}
             </table>
         </td>
-    </tr>
+    </tr> */}}
 {{end}}

@@ -47,7 +47,7 @@ type Footer struct {
 	Links        []Link `json:"links"`
 }
 type Link struct {
-	Link      string `json:"link"`
-	ImageLink string `json:"imageLink"`
-	Label     string `json:"label"`
+	Link string `json:"link"`
+	// ImageLink string `json:"imageLink"`
+	Label string `json:"label"`
 }

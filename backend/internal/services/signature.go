@@ -98,14 +98,14 @@ func (s *SignatureService) ExtractFromFile(ctx context.Context, reader io.Reader
 		links := []models.Link{}
 		if column > 0 {
 			linksList := strings.Split(record[11], "\n")
-			images := strings.Split(record[12], "\n")
-			texts := strings.Split(record[13], "\n")
+			texts := strings.Split(record[12], "\n")
+			// images := strings.Split(record[12], "\n")
 
 			for i, l := range linksList {
 				links = append(links, models.Link{
-					Link:      l,
-					ImageLink: images[i],
-					Label:     texts[i],
+					Link: l,
+					// ImageLink: images[i],
+					Label: texts[i],
 				})
 			}
 		}
