@@ -1,6 +1,6 @@
 module github.com/Alexander272/generate_signature/backend
 
-go 1.23.7
+go 1.24.10
 
 require (
 	github.com/gin-gonic/gin v1.10.1

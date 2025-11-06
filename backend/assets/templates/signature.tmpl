@@ -1,6 +1,6 @@
 {{define "htmlBody"}}
     <table cellspacing="0" cellpadding="0"
-        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;font-size: 14px;">
+        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;font-size: 14px;max-width:600px;">
         {{if .Header.IsNotEmpty}}
            {{template "partial:header" .}}
         {{end}}
@@ -12,7 +12,7 @@
                         {{if .Base.IsLogoLink}}
                             src="{{.Base.Logo}}" />
                         {{else}}
-                            src="data:image/png;base64,{{.Base.Logo}}" />
+                            src="data:image/jpeg;base64,{{.Base.Logo}}" />
                         {{end}}
                 </a>
             </td>

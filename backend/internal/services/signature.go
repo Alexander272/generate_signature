@@ -7,7 +7,6 @@ import (
 	"encoding/csv"
 	"fmt"
 	"io"
-	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -40,7 +39,9 @@ type Signature interface {
 func (s *SignatureService) Render(ctx context.Context, dto *models.RenderData) (string, error) {
 	dto.Base.HasPhone = dto.Base.Phone != ""
 	dto.Base.HasMobile = dto.Base.Mobile != ""
-	if _, err := url.ParseRequestURI(dto.Base.Logo); err == nil {
+	// if _, err := url.ParseRequestURI(dto.Base.Logo); err == nil {
+	if strings.HasPrefix(dto.Base.Logo, "http") {
+		// logger.Debug("logo is link", logger.StringAttr("logo", dto.Base.Logo))
 		dto.Base.IsLogoLink = true
 	}
 	dto.Footer.HasListTitle = dto.Footer.LinksTitle != ""
@@ -60,12 +61,13 @@ func (s *SignatureService) Render(ctx context.Context, dto *models.RenderData) (
 	m := minify.New()
 	m.AddFunc("text/css", css.Minify)
 	// m.AddFunc("text/html", html.Minify)
-	m.Add("text/html", &html.Minifier{KeepEndTags: true})
+	m.Add("text/html", &html.Minifier{KeepSpecialComments: true})
 
 	body, err := m.String("text/html", htmlBody.String())
 	if err != nil {
 		return "", fmt.Errorf("failed to minify html. error: %w", err)
 	}
+	// body := htmlBody.String()
 
 	return body, nil
 }
